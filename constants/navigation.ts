@@ -3,4 +3,5 @@ export const navigation = [
     { name: 'Features', href: '#' },
     { name: 'Marketplace', href: '#' },
     { name: 'Company', href: '#' },
+    { name: 'Example', href: '/example'}
 ]
