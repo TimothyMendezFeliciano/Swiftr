@@ -1,36 +1,28 @@
-export default function MenuItem({imageSrc, title, description, price}) {
+import Image from "next/image";
+import {XCircleIcon} from "@heroicons/react/24/outline";
+
+export default function MenuItem({imageSrc, title, description, price, inCart, onClick}) {
     return (
-        <div className="flex p-4 border-b border-gray-200">
+        // Animate the background as well. Probably delete this and use motion.
+        <div className={`flex p-4 border-b border-gray-200 ${inCart ? 'bg-indigo-500 text-white' : ''}`}
+             onClick={onClick}
+        >
             {/* Image */}
             <div className="w-1/4 h-24 mr-4">
-                <img src={imageSrc} alt={title} className="w-full h-full object-cover rounded-md"/>
+                <Image src={imageSrc} alt={title} className="w-full h-full object-cover rounded-md"
+                       width={500} height={500}
+                />
             </div>
 
             {/* Title, Price, and Description */}
             <div className="w-3/4">
-                <h2 className="text-lg font-semibold mb-1">{title}</h2>
+                <div className={'flex justify-between items-center'}>
+                    <h2 className="text-lg font-semibold mb-1">{title}</h2>
+                    {inCart && <XCircleIcon className="h-6 w-6" aria-hidden="true"/>}
+                </div>
                 <p className="text-gray-800 font-medium mb-2">${price.toFixed(2)}</p> {/* Display price with 2 decimal places */}
-                <p className="text-gray-600 text-sm">{description}</p>
+                <p className={`${inCart ? 'text-black' : 'text-gray-600'} text-sm`}>{description}</p>
             </div>
         </div>
     );
-
-    // return (
-    // <div className="w-full md:w-1/2 lg:w-1/3 p-4">
-    //     <div className="relative h-64 overflow-hidden rounded-t-md">
-    //         {/* Image */}
-    //         <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
-    //
-    //         {/* Title on the lower left inside the image */}
-    //         <div className="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white p-2 rounded">
-    //             {title}
-    //         </div>
-    //     </div>
-    //
-    //     {/* Description card below */}
-    //     <div className="p-4 bg-white shadow rounded-b-md">
-    //         <p className="text-gray-600">{description}</p>
-    //     </div>
-    // </div>
-    // )
 }
