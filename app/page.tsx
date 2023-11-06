@@ -14,13 +14,13 @@ export default function Home() {
                     </p>
                     <div className="mt-10 flex items-center gap-x-6">
                         <a
-                            href={`${navigation.find(item => item.name === 'Example')?.href}`}
+                            href={`${navigation.find(item => item.name === 'Register')?.href}`}
                             className="btnNormal"
                         >
-                            Get started
+                            Register
                         </a>
-                        <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                            Learn more <span aria-hidden="true">→</span>
+                        <a href={`${navigation.find(item => item.name === 'Example')?.href}`} className="text-sm font-semibold leading-6 text-gray-900">
+                            See example <span aria-hidden="true">→</span>
                         </a>
                     </div>
                 </div>

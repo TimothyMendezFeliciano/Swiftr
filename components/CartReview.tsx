@@ -1,7 +1,13 @@
 import {useState} from "react";
 import {motion, AnimatePresence} from "framer-motion";
+import MenuItem from "@/components/MenuItem";
+import {MenuItemsType} from "@/types/MenuItems";
 
-function CartOverlay({isOpen, items, onClose}) {
+function CartOverlay({isOpen, items, onClose}: {
+    isOpen: boolean,
+    items: MenuItemsType[],
+    onClose: () => void
+}) {
 
     const overlayVariants = {
         hidden: {y: '100%', opacity: 0},
@@ -19,7 +25,6 @@ function CartOverlay({isOpen, items, onClose}) {
                     transition={{type: 'spring', stiffness: 300, damping: 30}}
                     className={'fixed inset-0 z-50 bg-gray-700 bg-opacity-50'}
                 >
-                    {/*<div className={`${isOpen ? 'fixed inset-0 z-50' : 'hidden'} flex justify-center items-end`}>*/}
                     <div className={'flex justify-center items-end'}
                     >
                         <div
@@ -27,12 +32,15 @@ function CartOverlay({isOpen, items, onClose}) {
                             style={{transform: isOpen ? 'translateY(0%)' : 'translateY(100%)'}}>
                             <button className="mb-4" onClick={onClose}>Close</button>
                             <h2 className="text-xl mb-4">Your Cart</h2>
-                            {/* List out cart items */}
-                            {items.map(item => (
-                                <div key={item?.id}>
-                                    {item?.title} - ${item?.price.toFixed(2)}
-                                </div>
-                            ))}
+                            {/*{items.map((item, index) => {*/}
+                            {/*    <MenuItem {...item} key={index} inCart={false}/>*/}
+                            {/*})}*/}
+                                {/* List out cart items */}
+                                {items.map((item, index) => (
+                                    <div key={index}>
+                                        {item?.title} - ${item?.price.toFixed(2)}
+                                    </div>
+                                ))}
                         </div>
                     </div>
                 </motion.div>
@@ -42,7 +50,7 @@ function CartOverlay({isOpen, items, onClose}) {
     );
 }
 
-export default function CartReview({cartItems}) {
+export default function CartReview({cartItems}: MenuItemsType) {
 
     const [cartOpen, setCartOpen] = useState(false)
 

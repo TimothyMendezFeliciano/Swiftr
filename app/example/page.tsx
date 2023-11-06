@@ -1,5 +1,4 @@
 'use client'
-import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import MenuCategories from "@/components/MenuCategories";
 import {useState} from "react";
@@ -8,9 +7,11 @@ import useMenuItems from "@/hooks/useMenuItems";
 import CartReview from "@/components/CartReview";
 import {OnClickStepper} from "@/components/Layouts/OnClickStepper";
 import {motion} from "framer-motion";
+import {MenuItemsType} from "@/types/MenuItems";
 
 
-const allMenuItems = [
+
+const allMenuItems: MenuItemsType[] = [
     {
         title: "BBQ Ribs",
         description: "Juicy BBQ ribs slow-cooked to perfection and glazed with our signature sauce. Served with coleslaw and garlic bread.",
@@ -50,8 +51,8 @@ export default function Example() {
     }
 
     const menuCategories = ["All", "Starters", "Mains", "Desserts", "Drinks"];
-    const [cartItems, setCartItems] = useState([])
-    const menuItems = useMenuItems(allMenuItems, currentCategory, cartItems)
+    const [cartItems, setCartItems] = useState<MenuItemsType[]>([])
+    const menuItems: MenuItemsType[] = useMenuItems(allMenuItems, currentCategory, cartItems)
 
     const handleMenuItemClick = (title) => {
         const item = menuItems.find((items) => items?.title === title)
