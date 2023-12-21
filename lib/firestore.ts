@@ -1,4 +1,4 @@
-import { generateFakeRestaurantsAndReviews } from "@/src/lib/fakeRestaurants.js";
+// import {generateFakeRestaurantsAndReviews} from "@/src/lib/fakeRestaurants.js";
 
 import {
     collection,
@@ -15,7 +15,47 @@ import {
     addDoc,
 } from "firebase/firestore";
 
-import { db } from "./firebase"
+import {db} from "./firebase"
+import {IRestaurant} from "@/interfaces/interfaces";
+
+export async function updateRestaurantImageReference(
+    restaurantId: string,
+    publicImageUrl: string
+) {
+    const restaurantRef = doc(collection(db, "restaurants"), restaurantId);
+    if (restaurantRef) {
+        await updateDoc(restaurantRef, {
+            photo: publicImageUrl
+        })
+    }
+}
+
+export async function getRestaurantById(restaurantId: string) {
+    if (!restaurantId) {
+        console.log("Error: Invalid Restaurant ID: ", restaurantId)
+    }
+
+    const docRef = doc(db, "restaurants", restaurantId)
+    const docSnap = await getDoc(docRef)
+    return {
+        ...docSnap.data()
+    }
+}
+
+export async function uploadRestaurant(restaurant: IRestaurant) {
+    // const restaurantRef = db.ref('restaurants/' + restaurant.id);
+    // restaurantRef.set(restaurant, (error) => {
+    //     if (error) {
+    //         console.error("Data could not be saved.", +error)
+    //     } else {
+    //         console.log("Data saved successfully.")
+    //     }
+    // })
+    const docRef = await addDoc(
+        collection(db, "restaurants"),
+        restaurant
+    )
+}
 
 // export async function updateRestaurantImageReference(
 //     restaurantId,

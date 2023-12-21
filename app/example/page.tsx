@@ -45,7 +45,7 @@ const allMenuItems: MenuItemsType[] = [
 
 export default function Example() {
 
-    const [currentCategory, setCurrentCategory] = useState("All")
+    const [currentCategory, setCurrentCategory] = useState<string>("All")
     const handleCategoryClick = (category) => {
         setCurrentCategory(category);
     }

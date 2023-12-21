@@ -7,9 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "firebasedocker": "docker run --rm -p=9000:9000 -p=8080:8080 -p=4000:4000 -p=9099:9099  -p=8085:8085 -p=5001:5001  -p=9199:9199 --env GCP_PROJECT=<swiftpr> --env ENABLE_UI=true spine3/firebase-emulator"
+    "firebasedocker": "docker run --rm -p=9000:9000 -p=8080:8080 -p=4000:4000 -p=9099:9099  -p=8085:8085 -p=5001:5001  -p=9199:9199 --env GCP_PROJECT=<swiftpr> --env ENABLE_UI=true spine3/firebase-emulator",
+    "fire": "firebase emulators:start",
+    "seed": "ts-node ./seeds/seed.ts && tsc --watch",
+    "serve:seeded": "npm run build && firebase emulators:exec --inspect-functions --ui --only functions,firestore,auth,pubsub,storage \"npm run seed\""
   },
   "dependencies": {
+    "@firebase/rules-unit-testing": "^3.0.1",
     "@google-cloud/firestore": "^7.1.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
@@ -19,7 +23,8 @@
     "next": "13.5.6",
     "react": "^18",
     "react-dom": "^18",
-    "react-qr-code": "^2.0.12"
+    "react-qr-code": "^2.0.12",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.6",
@@ -31,6 +36,7 @@
     "eslint-config-next": "13.5.6",
     "postcss": "^8",
     "tailwindcss": "^3",
+    "tslib": "^2.6.2",
     "typescript": "^5"
   }
 }
