@@ -3,6 +3,10 @@ import {motion, AnimatePresence} from "framer-motion";
 import MenuItem from "@/components/MenuItem";
 import {MenuItemsType} from "@/types/MenuItems";
 
+type CartReviewProps = {
+    cartItems: MenuItemsType[]
+}
+
 function CartOverlay({isOpen, items, onClose}: {
     isOpen: boolean,
     items: MenuItemsType[],
@@ -50,7 +54,7 @@ function CartOverlay({isOpen, items, onClose}: {
     );
 }
 
-export default function CartReview({cartItems}: MenuItemsType) {
+export default function CartReview({cartItems}: CartReviewProps) {
 
     const [cartOpen, setCartOpen] = useState(false)
 

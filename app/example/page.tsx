@@ -1,14 +1,13 @@
 'use client'
 import Banner from "@/components/Banner";
 import MenuCategories from "@/components/MenuCategories";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import MenuItem from "@/components/MenuItem";
 import useMenuItems from "@/hooks/useMenuItems";
 import CartReview from "@/components/CartReview";
 import {OnClickStepper} from "@/components/Layouts/OnClickStepper";
 import {motion} from "framer-motion";
 import {MenuItemsType} from "@/types/MenuItems";
-
 
 
 const allMenuItems: MenuItemsType[] = [
@@ -54,10 +53,12 @@ export default function Example() {
     const [cartItems, setCartItems] = useState<MenuItemsType[]>([])
     const menuItems: MenuItemsType[] = useMenuItems(allMenuItems, currentCategory, cartItems)
 
-    const handleMenuItemClick = (title) => {
+    const handleMenuItemClick = useCallback((title) => {
         const item = menuItems.find((items) => items?.title === title)
-        setCartItems([...cartItems, item])
-    }
+        if (cartItems.length > 0 && item !== undefined) {
+            setCartItems([...cartItems, item])
+        }
+    }, [cartItems])
 
     return <>
         <Banner imageUrl={'/restaurant_example.jpg'}
@@ -75,7 +76,7 @@ export default function Example() {
                 transition={{type: 'spring', stiffness: 400, damping: 17}}
             >
                 <MenuItem {...item} key={index}
-                          inCart={cartItems.find((cartItem) => cartItem?.title === item.title)}
+                          inCart={!!cartItems.find((cartItem) => cartItem?.title === item.title)}
                           onClick={() => handleMenuItemClick(item.title)}
                 />
             </motion.div>
